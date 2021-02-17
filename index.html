@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="crypto.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 <header>
 
@@ -15,9 +16,16 @@
 
 <body>
 <h2><span id="myText"></span> chart</h2>
-<canvas id="myChart" width="400" height="200"></canvas>
+
 <script src="chart.js"></script>
-    <h2>Lista de Cryptos</h2>
+<div class="btn-group" role="group" aria-label="Basic example" style="float:right">
+    <button type="button" onclick=setTime("1","hourly") id="1d" class="btn btn-primary">1d</button>
+    <button type="button" onclick=setTime("30","daily") id="1m" class="btn btn-primary">1M</button>
+    <button type="button" onclick=setTime("365","daily") id="1y" class="btn btn-primary">1Y</button>
+</div>
+<canvas id="myChart" width="400" height="200"></canvas>
+
+<h2>Lista de Cryptos</h2>
     <table class="table table-striped">
         <thead>
         <tr>

@@ -1,31 +1,33 @@
-var id="bitcoin"
-let link_precios=`https://api.coingecko.com/api/v3/coins/${this.id}/market_chart?vs_currency=usd&days=30&interval=daily`
+var link_precios=`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily`
 var results=[]
 var prices=[]
 var time=[]
 var myChart
-fetch(link_precios, {
-    headers: {
-        Accept: 'application/json'
-    },
-    method: 'GET'
-})
-    .then(res => {
-        console.log("Response here")
-        return res.json()
+var id="bitcoin"
+update()
+
+function update(){
+    fetch(link_precios, {
+        headers: {
+            Accept: 'application/json'
+        },
+        method: 'GET'
     })
-    .then(response => {
-        results = response.prices;
-        this.setPrices();
-        setChart()
-    })
-    .catch(e => {
-        console.error("Error " + e)
-    })
+        .then(res => {
+            return res.json()
+        })
+        .then(response => {
+            results = response.prices;
+            this.setPrices();
+            setChart()
+        })
+        .catch(e => {
+            console.error("Error " + e)
+        })
+}
 
 function setPrices(){
-
-    results.forEach(function(res, i){
+    results.forEach(function(res){
         prices.push(res[1])
         const milliseconds = res[0]// 1575909015000
         const dateObject = new Date(milliseconds)
@@ -35,7 +37,7 @@ function setPrices(){
 }
 
 function setChart() {
-    var ctx = document.getElementById('myChart');
+    let ctx = document.getElementById('myChart');
 
 // eslint-disable-next-line no-unused-vars
     myChart = new Chart(ctx, {
@@ -47,7 +49,7 @@ function setChart() {
                 lineTension: 0,
                 backgroundColor: 'transparent',
                 borderColor: '#007bff',
-                borderWidth: 4,
+                borderWidth: 2,
                 pointBackgroundColor: '#007bff'
             }]
         },
@@ -67,27 +69,20 @@ function setChart() {
 }
 
 function setID(id, name){
-    console.log(id)
+    this.id=id
     setTitle(name)
-    this.prices=[]
-    this.time=[]
-    this.myChart.destroy();
-    fetch(`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=30&interval=daily`, {
-        headers: {
-            Accept: 'application/json'
-        },
-        method: 'GET'
-    })
-        .then(res => {
-            return res.json()
-        })
-        .then(response => {
-            results = response.prices;
-            this.setPrices();
-            this.setChart()
-        })
-        .catch(e => {
-            console.error("Error " + e)
-        })
+    prices=[]
+    time=[]
+    link_precios=`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=30&interval=daily`
+    myChart.destroy();
+    this.update()
     window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function setTime(fecha, inter){
+    prices=[]
+    time=[]
+    link_precios=`https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${fecha}&interval=${inter}`
+    myChart.destroy();
+    this.update()
 }
