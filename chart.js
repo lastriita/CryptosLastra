@@ -79,6 +79,7 @@ function setID(id, name){
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
+
 function setTime(fecha, inter){
     prices=[]
     time=[]
