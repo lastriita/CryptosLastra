@@ -35,6 +35,7 @@ function updateTable(){
     })
     setTitle("Bitcoin")
     document.getElementById("contenido-tabla").innerHTML = html;
+    
 }
 
 function setTitle(name) {
